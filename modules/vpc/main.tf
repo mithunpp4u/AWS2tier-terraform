@@ -22,14 +22,14 @@ resource "aws_internet_gateway" "my_gw1" {
 }
 
 #fetching the AZs of this region
-data "aws_availability_zones" "AZs" {}
+data "aws_availability_zones" "available_zones" {}
   
 #creating the first public subnet
 
 resource "aws_subnet" "mypsub1" {
   vpc_id     = aws_vpc.my_vpc.id
   cidr_block = var.pb_sub1_cidrblk
-  availability_zone = data.aws_availability_zones.AZs[0]
+  availability_zone = data.aws_availability_zones.available_zones.names[0]
   map_public_ip_on_launch = true
 
   tags = {
@@ -41,7 +41,7 @@ resource "aws_subnet" "mypsub1" {
 resource "aws_subnet" "mypsub2" {
   vpc_id     = aws_vpc.my_vpc.id
   cidr_block = var.pb_sub2_cidrblk
-  availability_zone = data.aws_availability_zones.AZs[1]
+  availability_zone = data.aws_availability_zones.available_zones.names[1]
   map_public_ip_on_launch = true
 
   tags = {
@@ -72,7 +72,7 @@ resource "aws_route_table_association" "pubRTA1" {
     subnet_id = aws_subnet.mypsub1.id
 }
 resource "aws_route_table_association" "pubRTA2" {
-    route_table_id = aws_route_table.pubRTA2.id
+    route_table_id = aws_route_table.pubRT1.id
     subnet_id = aws_subnet.mypsub1.id
 }
 
@@ -82,12 +82,12 @@ resource "aws_route_table_association" "pubRTA2" {
 
 resource "aws_subnet" "myprv1" {
   vpc_id     = aws_vpc.my_vpc.id
-  cidr_block = var.pr1_sub1_cidrblk
-  availability_zone = data.aws_availability_zones.AZs[0]
+  cidr_block = var.pr_sub1_cidrblk
+  availability_zone = data.aws_availability_zones.available_zones.names[0]
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "prvsub1-${var.pr1_sub1_cidrblk}"
+    Name = "prvsub1-${var.pr_sub1_cidrblk}"
   }
 }
 
@@ -95,12 +95,12 @@ resource "aws_subnet" "myprv1" {
 
 resource "aws_subnet" "myprv2" {
   vpc_id     = aws_vpc.my_vpc.id
-  cidr_block = var.pr1_sub2_cidrblk
-  availability_zone = data.aws_availability_zones.AZs[1]
+  cidr_block = var.pr_sub2_cidrblk
+  availability_zone = data.aws_availability_zones.available_zones.names[1]
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "prvsub2-${var.pr1_sub2_cidrblk}"
+    Name = "prvsub2-${var.pr_sub2_cidrblk}"
   }
 }
 
@@ -108,12 +108,12 @@ resource "aws_subnet" "myprv2" {
 
 resource "aws_subnet" "myprv3" {
   vpc_id     = aws_vpc.my_vpc.id
-  cidr_block = var.pr2_sub1_cidrblk
-  availability_zone = data.aws_availability_zones.AZs[0]
+  cidr_block = var.pr_sub3_cidrblk
+  availability_zone = data.aws_availability_zones.available_zones.names[0]
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "prvsub3-${var.pr2_sub1_cidrblk}"
+    Name = "prvsub3-${var.pr_sub3_cidrblk}"
   }
 }
 
@@ -121,12 +121,12 @@ resource "aws_subnet" "myprv3" {
 
 resource "aws_subnet" "myprv4" {
   vpc_id     = aws_vpc.my_vpc.id
-  cidr_block = var.pr2_sub2_cidrblk
-  availability_zone = data.aws_availability_zones.AZs[1]
+  cidr_block = var.pr_sub4_cidrblk
+  availability_zone = data.aws_availability_zones.available_zones.names[1]
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "prvsub3-${var.pr2_sub2_cidrblk}"
+    Name = "prvsub3-${var.pr_sub2_cidrblk}"
   }
 }
 

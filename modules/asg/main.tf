@@ -2,8 +2,8 @@ resource "aws_launch_template" "launchtmplt1" {
     instance_type = var.instance_type
     key_name = var.key_name
     image_id = var.web_ami
-    vpc_security_group_ids = [module.sg.web_sg_id]
-    user_data = filebase64("user.sh")
+    vpc_security_group_ids = [var.web_sg_id]
+    user_data = filebase64("D:\\MY_LAB\\Iac\\pro5-2tier\\modules\\asg\\user.sh")
 
     tags = {
       Name= "${var.project_name}-tmplt"
@@ -37,7 +37,7 @@ resource "aws_autoscaling_group" "asg1" {
 
 resource "aws_autoscaling_policy" "scale-up" {
       name                   = "${var.project_name}-asg-scale-up"
-  autoscaling_group_name = aws_autoscaling_group.asg_name.name
+  autoscaling_group_name = aws_autoscaling_group.asg1.name
   adjustment_type        = "ChangeInCapacity"
   scaling_adjustment     = "1" #increasing instance by 1 
   cooldown               = "300"
@@ -61,7 +61,7 @@ resource "aws_cloudwatch_metric_alarm" "scale_up_alarm" {
     "AutoScalingGroupName" = aws_autoscaling_group.asg1.name
   }
   actions_enabled = true
-  alarm_actions   = [aws_autoscaling_policy.scale-up]
+  alarm_actions   = [aws_autoscaling_policy.scale-up.arn]
 }
 
 # scale down policy
@@ -89,5 +89,5 @@ resource "aws_cloudwatch_metric_alarm" "scale_down_alarm" {
     "AutoScalingGroupName" = aws_autoscaling_group.asg1.name
   }
   actions_enabled = true
-  alarm_actions   = [aws_autoscaling_policy.scale_down]
+  alarm_actions   = [aws_autoscaling_policy.scale_down.arn]
 }

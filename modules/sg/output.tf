@@ -1,5 +1,5 @@
 output "web_sg_id" {
-  value= aws_security_group.webbsg.id
+  value= aws_security_group.websg.id
 }
 
 output "alb_sg_id" {

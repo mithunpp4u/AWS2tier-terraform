@@ -1,9 +1,2 @@
 variable "project_name" {}
-variable "pb_sub1_id" {}
-variable "pb_sub2_id" {}
-variable "pr_sub1_id" {}
-variable "pr_sub2_id" {}
-variable "pr_sub3_id" {}
-variable "pr_sub4_id" {}
-variable "internet_gw_id" {}
 variable "vpc_id" {}

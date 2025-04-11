@@ -1,0 +1,22 @@
+variable "project_name" {}
+variable "vpc_cidrblk" {}
+variable "pb_sub1_cidrblk" {}
+variable "pb_sub2_cidrblk" {}
+variable "pr_sub1_cidrblk" {}
+variable "pr_sub2_cidrblk" {}
+variable "pr_sub3_cidrblk" {}
+variable "pr_sub4_cidrblk" {}
+variable "web_ami" {}
+variable "instance_type" {}
+variable "min_size" {}
+variable "max_size" {}
+variable "desired_cap" {}
+variable "health_check_type" {}     
+variable "db_sub_name" {}
+variable db_username {}
+variable db_password {}
+variable "db_name" {}
+variable certificate_domain_name {}
+variable additional_domain_name {}
+variable "alb_domain_name" {}
+
