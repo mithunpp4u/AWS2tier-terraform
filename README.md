@@ -1,7 +1,5 @@
 
 
----
-
 # 🌩️ AWS 2-Tier Architecture using Terraform (Mini Project)
 
 This mini project sets up a modular 2-tier cloud infrastructure on **AWS** using **Terraform**, just for fun and skill-building outside of work.
