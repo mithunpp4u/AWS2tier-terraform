@@ -76,6 +76,4 @@ terraform apply
 
 > Type `yes` to confirm and deploy your infrastructure.
 
----
 
-Let me know if you'd like a downloadable version of this README or want to turn this into a public portfolio-style documentation!
