@@ -14,3 +14,4 @@ variable "vpc_id" {}
 
 variable "web_sg_id" {}
 variable "alb_sg_id" {}
+variable "target_group_arn" {}

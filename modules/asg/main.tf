@@ -19,6 +19,7 @@ resource "aws_autoscaling_group" "asg1" {
   health_check_type         = var.health_check_type
   desired_capacity          = var.desired_cap
   vpc_zone_identifier       = [var.pr_sub1_id,var.pr_sub2_id]
+  target_group_arns = [var.target_group_arn]
 
   enabled_metrics = [
     "GroupMinSize",

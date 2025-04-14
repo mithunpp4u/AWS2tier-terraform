@@ -20,7 +20,7 @@ project_name = var.project_name
 pb_sub1_id = module.vpc.pb_sub1_id
 pb_sub2_id = module.vpc.pb_sub2_id
 pr_sub1_id = module.vpc.pr_sub1_id
-pr_sub2_id = module.vpc.pr_sub3_id
+pr_sub2_id = module.vpc.pr_sub2_id
 pr_sub3_id = module.vpc.pr_sub3_id
 pr_sub4_id = module.vpc.pr_sub4_id
 internet_gw_id =module.vpc.internet_gw_id
@@ -42,7 +42,7 @@ module "key" {
 module "alb" {
     source = "../modules/alb"
     pb_sub1_id = module.vpc.pb_sub1_id
-    pb_sub2_id = module.vpc.pb_sub1_id
+    pb_sub2_id = module.vpc.pb_sub2_id
     pr_sub1_id = module.vpc.pr_sub1_id
     pr_sub2_id = module.vpc.pr_sub2_id
     vpc_id = module.vpc.vpc_id
@@ -55,6 +55,7 @@ module "alb" {
 module "asg" {
     source = "../modules/asg"
     project_name = var.project_name
+    target_group_arn = module.alb.tg_arn
     vpc_id = module.vpc.vpc_id
     pr_sub1_id = module.vpc.pr_sub1_id
     pr_sub2_id = module.vpc.pr_sub2_id
@@ -87,7 +88,7 @@ module "cloudfront" {
     project_name = var.project_name
     certificate_domain_name = var.certificate_domain_name
     additional_domain_name = var.additional_domain_name
-    alb_domain_name = var.alb_domain_name
+    alb_domain_name = module.alb.alb_dns_name
 }
 
 module "route53" {

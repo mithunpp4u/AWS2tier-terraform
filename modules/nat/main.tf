@@ -49,11 +49,28 @@ resource "aws_route_table" "prvRT1" {
   route {
 
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.myNAT1.allocation_id
+    gateway_id = aws_nat_gateway.myNAT1.id
   }
 
   tags   = {
     Name = "${var.project_name}-prv-rt1"
+  }
+}
+
+
+
+
+resource "aws_route_table" "prvRT2" {
+  vpc_id = var.vpc_id
+  
+  route {
+
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.myNAT2.id
+  }
+
+    tags   = {
+    Name = "${var.project_name}-prv-rt2"
   }
 }
 
@@ -67,22 +84,6 @@ resource "aws_route_table_association" "prvRTA2" {
     subnet_id = var.pr_sub2_id
     route_table_id = aws_route_table.prvRT1.id
   
-}
-
-
-
-resource "aws_route_table" "prvRT2" {
-  vpc_id = var.vpc_id
-  
-  route {
-
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.myNAT2.allocation_id
-  }
-
-    tags   = {
-    Name = "${var.project_name}-prv-rt2"
-  }
 }
 
 
